@@ -173,7 +173,7 @@ export function CreateProjectModal({ open, onOpenChange, onCreateProject }: Crea
     <ProjectFormContext.Provider value={{ formData, updateFormData }}>
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent
-          className="max-w-4xl h-[90vh] p-0 gap-0 overflow-hidden"
+          className="max-w-5xl h-[85vh] p-0 gap-0 overflow-hidden"
           showCloseButton={false}
         >
           <div className="flex h-full">
