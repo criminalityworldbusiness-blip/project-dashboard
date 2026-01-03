@@ -26,6 +26,7 @@ function columnStatusIcon(status: Project["status"]): React.JSX.Element {
 type ProjectBoardViewProps = {
   projects: Project[]
   loading?: boolean
+  onProjectClick?: (project: Project) => void
 }
 
 const COLUMN_ORDER: Array<Project["status"]> = ["backlog", "planned", "active", "completed"]
