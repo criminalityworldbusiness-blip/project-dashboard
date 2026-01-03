@@ -180,6 +180,14 @@ export function ProjectsContent() {
         </div>
       )}
       
+      <CommandMenu
+        open={isCommandMenuOpen}
+        onOpenChange={setIsCommandMenuOpen}
+        onSelectProject={(project) => setSelectedProject(project)}
+        onCreateProject={handleAddProjectClick}
+        onExportProjects={handleExportProjects}
+      />
+      
       <ProjectSetupChoiceModal
         open={isSetupChoiceOpen}
         onOpenChange={setIsSetupChoiceOpen}
