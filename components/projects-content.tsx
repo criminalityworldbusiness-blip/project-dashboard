@@ -118,10 +118,17 @@ export function ProjectsContent() {
         counts={computeFilterCounts(filteredProjects)}
         viewOptions={viewOptions}
         onViewOptionsChange={setViewOptions}
+        onAddProject={() => setIsCreateModalOpen(true)}
       />
       {viewOptions.viewType === "timeline" && <ProjectTimeline />}
       {viewOptions.viewType === "list" && <ProjectCardsView projects={filteredProjects} />}
       {viewOptions.viewType === "board" && <ProjectBoardView projects={filteredProjects} />}
+      
+      <CreateProjectModal
+        open={isCreateModalOpen}
+        onOpenChange={setIsCreateModalOpen}
+        onCreateProject={handleCreateProject}
+      />
     </div>
   )
 }
