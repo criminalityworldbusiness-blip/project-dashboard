@@ -10,6 +10,7 @@ import { ProjectSetupChoiceModal } from "@/components/project-setup-choice-modal
 import { QuickCreateModal } from "@/components/quick-create-modal"
 import { CreateProjectModal } from "@/components/create-project-modal"
 import { ProjectDetailsView } from "@/components/project-details/project-details-view"
+import { CommandMenu } from "@/components/command-menu"
 import { computeFilterCounts, type Project } from "@/lib/data/projects"
 import { DEFAULT_VIEW_OPTIONS, type FilterChip, type ViewOptions } from "@/lib/view-options"
 import { chipsToParams, paramsToChips } from "@/lib/url/filters"
@@ -20,7 +21,7 @@ export function ProjectsContent() {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const { projects, addProject } = useProjects()
+  const { projects, addProject, exportProjects } = useProjects()
 
   const [viewOptions, setViewOptions] = useState<ViewOptions>(DEFAULT_VIEW_OPTIONS)
   const [filters, setFilters] = useState<FilterChip[]>([])
@@ -28,6 +29,8 @@ export function ProjectsContent() {
   const [isQuickCreateOpen, setIsQuickCreateOpen] = useState(false)
   const [isGuidedSetupOpen, setIsGuidedSetupOpen] = useState(false)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [isCommandMenuOpen, setIsCommandMenuOpen] = useState(false)
+  const [showArchived, setShowArchived] = useState(false)
 
   const isSyncingRef = useRef(false)
   const prevParamsRef = useRef<string>("")
@@ -51,6 +54,13 @@ export function ProjectsContent() {
   const handleChooseGuided = () => {
     setIsSetupChoiceOpen(false)
     setIsGuidedSetupOpen(true)
+  }
+
+  const handleExportProjects = () => {
+    exportProjects("json")
+    toast.success("Projects exported!", {
+      description: "Download started...",
+    })
   }
 
   const removeFilter = (key: string, value: string) => {
