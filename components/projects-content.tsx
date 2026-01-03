@@ -212,6 +212,16 @@ export function ProjectsContent() {
         onOpenChange={setIsGuidedSetupOpen}
         onCreateProject={handleCreateProject}
       />
+      
+      <ActivityPanel
+        isOpen={isActivityOpen}
+        onClose={() => setIsActivityOpen(false)}
+      />
+      
+      <SettingsModal
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+      />
     </>
   )
 }
