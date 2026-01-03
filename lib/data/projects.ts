@@ -13,6 +13,11 @@ export type Project = {
   client?: string
   typeLabel?: string
   durationLabel?: string
+  // New fields
+  starred?: boolean
+  archived?: boolean
+  description?: string
+  notes?: string
   tasks: Array<{
     id: string
     name: string
@@ -20,6 +25,7 @@ export type Project = {
     status: "todo" | "in-progress" | "done"
     startDate: Date
     endDate: Date
+    notes?: string
   }>
 }
 
