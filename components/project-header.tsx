@@ -46,6 +46,24 @@ export function ProjectHeader({
           </Button>
           <Button 
             variant="ghost" 
+            size="icon"
+            onClick={onOpenActivity}
+            className="h-8 w-8 rounded-lg"
+            title="Recent Activity"
+          >
+            <Activity className="h-4 w-4" />
+          </Button>
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={onOpenSettings}
+            className="h-8 w-8 rounded-lg"
+            title="Settings"
+          >
+            <Settings className="h-4 w-4" />
+          </Button>
+          <Button 
+            variant="ghost" 
             size="sm"
             onClick={onAddProject}
             data-testid="add-project-btn"
