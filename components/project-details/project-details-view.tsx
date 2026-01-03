@@ -65,9 +65,9 @@ export function ProjectDetailsView({ project, onClose }: ProjectDetailsViewProps
           <div className="px-6 py-4">
             <h1 className="text-2xl font-semibold mb-3">{project.name}</h1>
             <div className="flex items-center gap-3 flex-wrap">
-              {/* Client */}
+              {/* Client Badge */}
               {project.client && (
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-muted text-sm">
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-muted text-sm font-medium">
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
                     <circle cx="9" cy="7" r="4" />
@@ -78,51 +78,58 @@ export function ProjectDetailsView({ project, onClose }: ProjectDetailsViewProps
                 </div>
               )}
 
-              {/* Type */}
+              {/* Type & Duration Badge */}
               {project.typeLabel && (
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-muted text-sm">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="10" />
-                    <polyline points="12 6 12 12 16 14" />
-                  </svg>
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-muted text-sm font-medium">
                   {project.typeLabel} {project.durationLabel}
                 </div>
               )}
 
-              {/* Priority */}
-              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-muted text-sm">
+              {/* Priority Badge */}
+              <div className={cn(
+                "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium",
+                project.priority === "urgent" && "bg-red-100 text-red-700",
+                project.priority === "high" && "bg-orange-100 text-orange-700",
+                project.priority === "medium" && "bg-yellow-100 text-yellow-700",
+                project.priority === "low" && "bg-gray-100 text-gray-600"
+              )}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="12" x2="12" y1="2" y2="22" />
-                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 6v6l4 2" />
                 </svg>
-                {project.priority}
+                {project.priority.charAt(0).toUpperCase() + project.priority.slice(1)}
               </div>
 
-              {/* Progress */}
-              <div className="flex items-center gap-2 px-2.5 py-1">
-                <div className="relative h-10 w-10">
-                  <svg className="transform -rotate-90" width="40" height="40">
+              {/* Progress Circle */}
+              <div className="flex items-center gap-2">
+                <div className="relative h-12 w-12">
+                  <svg className="transform -rotate-90" width="48" height="48">
                     <circle
-                      cx="20"
-                      cy="20"
-                      r="16"
+                      cx="24"
+                      cy="24"
+                      r="20"
                       fill="none"
                       stroke="currentColor"
-                      strokeWidth="3"
+                      strokeWidth="4"
                       className="text-muted"
                     />
                     <circle
-                      cx="20"
-                      cy="20"
-                      r="16"
+                      cx="24"
+                      cy="24"
+                      r="20"
                       fill="none"
                       stroke="currentColor"
-                      strokeWidth="3"
-                      strokeDasharray={`${project.progress * 100.53} 100.53`}
-                      className="text-blue-600"
+                      strokeWidth="4"
+                      strokeDasharray={`${project.progress * 125.66 / 100} 125.66`}
+                      className={cn(
+                        project.progress >= 75 && "text-green-500",
+                        project.progress >= 50 && project.progress < 75 && "text-blue-500",
+                        project.progress >= 25 && project.progress < 50 && "text-orange-500",
+                        project.progress < 25 && "text-red-500"
+                      )}
                     />
                   </svg>
-                  <div className="absolute inset-0 flex items-center justify-center text-xs font-semibold">
+                  <div className="absolute inset-0 flex items-center justify-center text-sm font-semibold">
                     {project.progress}%
                   </div>
                 </div>
@@ -135,16 +142,6 @@ export function ProjectDetailsView({ project, onClose }: ProjectDetailsViewProps
                   <AvatarFallback>{project.members[0].split(' ').map(n => n[0]).join('')}</AvatarFallback>
                 </Avatar>
               )}
-
-              {/* Sidebar Toggle (Mobile) */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="md:hidden ml-auto"
-                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              >
-                <Menu className="h-4 w-4" />
-              </Button>
             </div>
           </div>
 
