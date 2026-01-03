@@ -93,6 +93,7 @@ export function ProjectBoardView({ projects, loading = false, onProjectClick }: 
       <ProjectCard
         project={p}
         variant="board"
+        onClick={() => onProjectClick?.(p)}
         actions={
           <Popover>
             <PopoverTrigger asChild>
