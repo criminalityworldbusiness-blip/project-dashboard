@@ -6,7 +6,7 @@ import { FilterChip } from "@/components/filter-chip"
 import { ViewOptionsPopover } from "@/components/view-options-popover"
 import { FilterPopover } from "@/components/filter-popover"
 import { ChipOverflow } from "@/components/chip-overflow"
-import { Link as LinkIcon, Plus, Sparkle } from "@phosphor-icons/react/dist/ssr"
+import { Link as LinkIcon, Plus, Sparkle, Settings, Activity } from "@phosphor-icons/react/dist/ssr"
 import type { FilterCounts } from "@/lib/data/projects"
 import type { FilterChip as FilterChipType, ViewOptions } from "@/lib/view-options"
 
@@ -18,9 +18,21 @@ interface ProjectHeaderProps {
   viewOptions: ViewOptions
   onViewOptionsChange: (options: ViewOptions) => void
   onAddProject?: () => void
+  onOpenSettings?: () => void
+  onOpenActivity?: () => void
 }
 
-export function ProjectHeader({ filters, onRemoveFilter, onFiltersChange, counts, viewOptions, onViewOptionsChange, onAddProject }: ProjectHeaderProps) {
+export function ProjectHeader({ 
+  filters, 
+  onRemoveFilter, 
+  onFiltersChange, 
+  counts, 
+  viewOptions, 
+  onViewOptionsChange, 
+  onAddProject,
+  onOpenSettings,
+  onOpenActivity
+}: ProjectHeaderProps) {
   return (
     <header className="flex flex-col border-b border-border/40">
       <div className="flex items-center justify-between px-4 py-3 border-b border-border">
