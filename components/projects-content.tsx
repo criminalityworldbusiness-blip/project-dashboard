@@ -104,6 +104,11 @@ export function ProjectsContent() {
   const filteredProjects = useMemo(() => {
     let list = projects.slice()
 
+    // Filter archived projects
+    if (!showArchived) {
+      list = list.filter((p) => !(p as any).archived)
+    }
+
     // Apply showClosedProjects toggle
     if (!viewOptions.showClosedProjects) {
       list = list.filter((p) => p.status !== "completed" && p.status !== "cancelled")
@@ -136,8 +141,10 @@ export function ProjectsContent() {
     const sorted = list.slice()
     if (viewOptions.ordering === "alphabetical") sorted.sort((a, b) => a.name.localeCompare(b.name))
     if (viewOptions.ordering === "date") sorted.sort((a, b) => (a.endDate?.getTime() || 0) - (b.endDate?.getTime() || 0))
-    return sorted
-  }, [filters, viewOptions, projects])
+    
+    // Sort starred to top
+    return sorted.sort((a, b) => ((b as any).starred ? 1 : 0) - ((a as any).starred ? 1 : 0))
+  }, [filters, viewOptions, projects, showArchived])
 
   return (
     <>
