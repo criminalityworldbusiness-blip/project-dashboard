@@ -48,7 +48,7 @@ function columnStatusLabel(status: Project["status"]): string {
   }
 }
 
-export function ProjectBoardView({ projects, loading = false }: ProjectBoardViewProps) {
+export function ProjectBoardView({ projects, loading = false, onProjectClick }: ProjectBoardViewProps) {
   const [items, setItems] = useState<Project[]>(projects)
   const [draggingId, setDraggingId] = useState<string | null>(null)
 
