@@ -183,21 +183,22 @@ export function OutcomeSuccessStep() {
       )}
 
       {/* Deadline */}
-      <div className="space-y-4">
-        <Label>Deadline</Label>
+      <div className="space-y-3">
+        <Label className="text-sm font-medium">Deadline</Label>
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="deadline-type" className="text-sm text-muted-foreground">Type</Label>
-            <Input id="deadline-type" value="Target date" disabled className="bg-muted/30" />
+            <Label htmlFor="deadline-type" className="text-xs text-muted-foreground">Type</Label>
+            <Input id="deadline-type" value="Target date" disabled className="bg-muted/30 h-10" />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="deadline-date" className="text-sm text-muted-foreground">Pick a date</Label>
+            <Label htmlFor="deadline-date" className="text-xs text-muted-foreground">Pick a date</Label>
             <Input
               id="deadline-date"
               type="date"
               value={formData.deadline?.toISOString().split('T')[0] || ''}
               onChange={(e) => updateFormData({ deadline: e.target.value ? new Date(e.target.value) : undefined })}
               data-testid="deadline-date"
+              className="h-10"
             />
           </div>
         </div>
