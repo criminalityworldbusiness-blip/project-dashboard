@@ -118,22 +118,53 @@ export function CreateProjectModal({ open, onOpenChange, onCreateProject }: Crea
     if (currentStep < 5) {
       setCurrentStep((prev) => prev + 1)
     } else {
-      // Create project
-      const newProject: Partial<Project> = {
+      // Create project with complete data
+      const now = new Date()
+      const newProject: Project = {
         id: String(Date.now()),
-        name: formData.name,
+        name: formData.name || "Untitled Project",
         taskCount: formData.addStarterTasks ? 3 : 0,
         progress: 0,
-        startDate: formData.startDate || new Date(),
-        endDate: formData.endDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        startDate: formData.startDate || now,
+        endDate: formData.endDate || new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000),
         status: formData.status,
         priority: formData.priority,
-        tags: formData.tags,
-        members: [...formData.owners, ...formData.contributors, ...formData.stakeholders].map(m => m.name),
+        tags: formData.tags.length > 0 ? formData.tags : ["new"],
+        members: [
+          ...formData.owners.map(o => o.name),
+          ...formData.contributors.map(c => c.name),
+        ],
         client: formData.client,
         typeLabel: formData.projectType,
-        durationLabel: "TBD",
-        tasks: [],
+        durationLabel: formData.endDate && formData.startDate 
+          ? `${Math.ceil((formData.endDate.getTime() - formData.startDate.getTime()) / (1000 * 60 * 60 * 24))} days`
+          : "TBD",
+        tasks: formData.addStarterTasks ? [
+          {
+            id: `${Date.now()}-1`,
+            name: "Project Setup",
+            assignee: formData.owners[0]?.name || "Unassigned",
+            status: "todo",
+            startDate: formData.startDate || now,
+            endDate: new Date((formData.startDate || now).getTime() + 7 * 24 * 60 * 60 * 1000),
+          },
+          {
+            id: `${Date.now()}-2`,
+            name: "Initial Planning",
+            assignee: formData.owners[0]?.name || "Unassigned",
+            status: "todo",
+            startDate: formData.startDate || now,
+            endDate: new Date((formData.startDate || now).getTime() + 7 * 24 * 60 * 60 * 1000),
+          },
+          {
+            id: `${Date.now()}-3`,
+            name: "Kick-off Meeting",
+            assignee: formData.owners[0]?.name || "Unassigned",
+            status: "todo",
+            startDate: formData.startDate || now,
+            endDate: new Date((formData.startDate || now).getTime() + 7 * 24 * 60 * 60 * 1000),
+          },
+        ] : [],
       }
       onCreateProject(newProject)
       handleClose()
