@@ -48,6 +48,23 @@ const footerItemIcons: Record<SidebarFooterItemId, React.ComponentType<{ classNa
 }
 
 export function AppSidebar() {
+  const { projects } = useProjects()
+  
+  // Get active projects (status: active) sorted by progress
+  const activeProjects = useMemo(() => {
+    return projects
+      .filter((p) => p.status === "active")
+      .slice(0, 4) // Show top 4
+      .map((p) => ({
+        id: p.id,
+        name: p.name,
+        progress: p.progress,
+        color: p.priority === "urgent" ? "#EF4444" : 
+               p.priority === "high" ? "#F97316" :
+               p.priority === "medium" ? "#22C55E" : "#94A3B8",
+      }))
+  }, [projects])
+
   return (
     <Sidebar className="border-border/40 border-r-0 shadow-none border-none">
       <SidebarHeader className="p-4">
