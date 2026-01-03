@@ -33,6 +33,8 @@ export function ProjectsContent() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [isCommandMenuOpen, setIsCommandMenuOpen] = useState(false)
   const [showArchived, setShowArchived] = useState(false)
+  const [isActivityOpen, setIsActivityOpen] = useState(false)
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false)
 
   const isSyncingRef = useRef(false)
   const prevParamsRef = useRef<string>("")
