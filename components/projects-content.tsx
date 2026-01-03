@@ -17,11 +17,21 @@ export function ProjectsContent() {
   const searchParams = useSearchParams()
 
   const [viewOptions, setViewOptions] = useState<ViewOptions>(DEFAULT_VIEW_OPTIONS)
-
   const [filters, setFilters] = useState<FilterChip[]>([])
+  const [projects, setProjects] = useState<Project[]>(initialProjects)
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
 
   const isSyncingRef = useRef(false)
   const prevParamsRef = useRef<string>("")
+
+  const handleCreateProject = (newProject: Partial<Project>) => {
+    const projectWithId = {
+      ...newProject,
+      id: String(Date.now()),
+      tasks: newProject.tasks || [],
+    } as Project
+    setProjects((prev) => [projectWithId, ...prev])
+  }
 
   const removeFilter = (key: string, value: string) => {
     const next = filters.filter((f) => !(f.key === key && f.value === value))
