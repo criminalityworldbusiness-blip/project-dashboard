@@ -102,10 +102,65 @@ export function ProjectCard({ project, actions, variant = "list", onClick }: Pro
 
   return (
     <div 
-      className="rounded-2xl border border-border bg-background hover:shadow-lg/5 transition-shadow cursor-pointer"
+      className="group rounded-2xl border border-border bg-background hover:shadow-lg/5 transition-shadow cursor-pointer relative"
       onClick={onClick}
       data-testid="project-card"
     >
+      {/* Star Button - Top Left */}
+      <button
+        onClick={handleStar}
+        className={cn(
+          "absolute top-2 left-2 z-10 p-1.5 rounded-full transition-all",
+          isStarred 
+            ? "bg-yellow-100 text-yellow-600" 
+            : "bg-white/80 text-gray-400 opacity-0 group-hover:opacity-100"
+        )}
+        data-testid={`star-project-${project.id}`}
+      >
+        <Star className={cn("h-4 w-4", isStarred && "fill-current")} />
+      </button>
+
+      {/* Context Menu - Top Right */}
+      <div className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 rounded-full bg-white/80"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <MoreVertical className="h-4 w-4" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-48 p-2" align="end" onClick={(e) => e.stopPropagation()}>
+            <div className="space-y-1">
+              <button
+                className="w-full flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-muted transition-colors"
+                onClick={handleDuplicate}
+              >
+                <Copy className="h-4 w-4" />
+                Duplicate
+              </button>
+              <button
+                className="w-full flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-muted transition-colors"
+                onClick={handleArchive}
+              >
+                <Archive className="h-4 w-4" />
+                {isArchived ? "Unarchive" : "Archive"}
+              </button>
+              <button
+                className="w-full flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-muted text-red-600 transition-colors"
+                onClick={handleDelete}
+              >
+                <Trash2 className="h-4 w-4" />
+                Delete
+              </button>
+            </div>
+          </PopoverContent>
+        </Popover>
+      </div>
+
       <div className="p-4">
         <div className="flex items-center justify-between">
           {isBoard ? (
