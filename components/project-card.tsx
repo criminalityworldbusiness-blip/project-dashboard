@@ -44,13 +44,42 @@ function priorityLabel(priority: Project["priority"]) {
 }
 
 export function ProjectCard({ project, actions, variant = "list", onClick }: ProjectCardProps) {
+  const { toggleStarProject, duplicateProject, toggleArchiveProject, deleteProject } = useProjects()
   const s = statusConfig(project.status)
   const assignee = project.members?.[0]
   const dueDate = project.endDate
   const avatarUrl = getAvatarUrl(assignee)
   const isBoard = variant === "board"
+  const isStarred = (project as any).starred
+  const isArchived = (project as any).archived
 
   const initials = assignee ? assignee.split(" ").map((p) => p[0]).join("").slice(0, 2).toUpperCase() : null
+
+  const handleStar = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    toggleStarProject(project.id)
+    toast.success(isStarred ? "Removed from favorites" : "Added to favorites")
+  }
+
+  const handleDuplicate = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    duplicateProject(project.id)
+    toast.success("Project duplicated successfully!")
+  }
+
+  const handleArchive = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    toggleArchiveProject(project.id)
+    toast.success(isArchived ? "Project unarchived" : "Project archived")
+  }
+
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    if (confirm(`Are you sure you want to delete "${project.name}"?`)) {
+      deleteProject(project.id)
+      toast.success("Project deleted")
+    }
+  }
 
   const secondaryLine = (() => {
     const a = project.client
