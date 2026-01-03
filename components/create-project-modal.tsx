@@ -178,11 +178,11 @@ export function CreateProjectModal({ open, onOpenChange, onCreateProject }: Crea
         >
           <div className="flex h-full">
             {/* Left Sidebar - Stepper */}
-            <div className="w-64 bg-muted/30 border-r border-border p-6">
+            <div className="w-72 bg-muted/20 border-r border-border p-6 flex flex-col">
               <div className="mb-8">
-                <h2 className="text-lg font-semibold">New Project</h2>
+                <h2 className="text-xl font-semibold">New Project</h2>
               </div>
-              <div className="space-y-4">
+              <div className="space-y-3 flex-1">
                 {steps.map((step) => (
                   <div
                     key={step.number}
@@ -190,14 +190,14 @@ export function CreateProjectModal({ open, onOpenChange, onCreateProject }: Crea
                   >
                     <div
                       className={cn(
-                        "flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium transition-all",
+                        "flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-medium transition-all",
                         currentStep === step.number &&
                           "bg-blue-600 text-white",
                         step.completed &&
                           "bg-green-500 text-white",
                         currentStep !== step.number &&
                           !step.completed &&
-                          "bg-muted text-muted-foreground"
+                          "bg-muted text-muted-foreground border border-border"
                       )}
                     >
                       {step.completed ? (
