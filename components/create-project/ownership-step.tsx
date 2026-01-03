@@ -98,8 +98,8 @@ export function OwnershipStep() {
   }
 
   return (
-    <div className="space-y-6">
-      <div>
+    <div className="space-y-6 max-w-3xl">
+      <div className="mb-6">
         <h2 className="text-2xl font-semibold mb-2">Who is responsible for this project?</h2>
         <p className="text-sm text-muted-foreground">
           Assign project owners, contributors, and stakeholders
