@@ -13,6 +13,7 @@ type ProjectCardProps = {
   project: Project
   actions?: React.ReactNode
   variant?: "list" | "board"
+  onClick?: () => void
 }
 
 function statusConfig(status: Project["status"]) {
