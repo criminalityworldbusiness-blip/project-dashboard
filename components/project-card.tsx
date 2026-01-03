@@ -38,7 +38,7 @@ function priorityLabel(priority: Project["priority"]) {
   return priority.charAt(0).toUpperCase() + priority.slice(1)
 }
 
-export function ProjectCard({ project, actions, variant = "list" }: ProjectCardProps) {
+export function ProjectCard({ project, actions, variant = "list", onClick }: ProjectCardProps) {
   const s = statusConfig(project.status)
   const assignee = project.members?.[0]
   const dueDate = project.endDate
