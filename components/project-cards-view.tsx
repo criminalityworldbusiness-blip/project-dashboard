@@ -37,7 +37,7 @@ export function ProjectCardsView({ projects, loading = false, onProjectClick }: 
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {projects.map((p) => (
-            <ProjectCard key={p.id} project={p} />
+            <ProjectCard key={p.id} project={p} onClick={() => onProjectClick?.(p)} />
           ))}
           <button className="rounded-2xl border border-dashed border-border/60 bg-background p-6 text-center text-sm text-muted-foreground hover:border-solid hover:border-border/80 hover:text-foreground transition-colors min-h-[180px] flex flex-col items-center justify-center cursor-pointer">
             <Plus className="mb-2 h-5 w-5" />
