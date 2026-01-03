@@ -95,7 +95,7 @@ export const useProjectForm = () => {
 type CreateProjectModalProps = {
   open: boolean
   onOpenChange: (open: boolean) => void
-  onCreateProject: (project: Partial<Project>) => void
+  onCreateProject: (project: Project) => void
 }
 
 export function CreateProjectModal({ open, onOpenChange, onCreateProject }: CreateProjectModalProps) {
