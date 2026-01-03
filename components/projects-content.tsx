@@ -167,6 +167,8 @@ export function ProjectsContent() {
             viewOptions={viewOptions}
             onViewOptionsChange={setViewOptions}
             onAddProject={handleAddProjectClick}
+            onOpenSettings={() => setIsSettingsOpen(true)}
+            onOpenActivity={() => setIsActivityOpen(true)}
           />
           {viewOptions.viewType === "timeline" && <ProjectTimeline />}
           {viewOptions.viewType === "list" && (
