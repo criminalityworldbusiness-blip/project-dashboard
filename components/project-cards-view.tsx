@@ -8,9 +8,10 @@ import { Skeleton } from "@/components/ui/skeleton"
 type ProjectCardsViewProps = {
   projects: Project[]
   loading?: boolean
+  onProjectClick?: (project: Project) => void
 }
 
-export function ProjectCardsView({ projects, loading = false }: ProjectCardsViewProps) {
+export function ProjectCardsView({ projects, loading = false, onProjectClick }: ProjectCardsViewProps) {
   const isEmpty = !loading && projects.length === 0
 
   return (
