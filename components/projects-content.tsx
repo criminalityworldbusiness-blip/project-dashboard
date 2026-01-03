@@ -6,6 +6,8 @@ import { ProjectHeader } from "@/components/project-header"
 import { ProjectTimeline } from "@/components/project-timeline"
 import { ProjectCardsView } from "@/components/project-cards-view"
 import { ProjectBoardView } from "@/components/project-board-view"
+import { ProjectSetupChoiceModal } from "@/components/project-setup-choice-modal"
+import { QuickCreateModal } from "@/components/quick-create-modal"
 import { CreateProjectModal } from "@/components/create-project-modal"
 import { computeFilterCounts, type Project } from "@/lib/data/projects"
 import { DEFAULT_VIEW_OPTIONS, type FilterChip, type ViewOptions } from "@/lib/view-options"
@@ -21,7 +23,9 @@ export function ProjectsContent() {
 
   const [viewOptions, setViewOptions] = useState<ViewOptions>(DEFAULT_VIEW_OPTIONS)
   const [filters, setFilters] = useState<FilterChip[]>([])
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+  const [isSetupChoiceOpen, setIsSetupChoiceOpen] = useState(false)
+  const [isQuickCreateOpen, setIsQuickCreateOpen] = useState(false)
+  const [isGuidedSetupOpen, setIsGuidedSetupOpen] = useState(false)
 
   const isSyncingRef = useRef(false)
   const prevParamsRef = useRef<string>("")
@@ -31,6 +35,20 @@ export function ProjectsContent() {
     toast.success("Project created successfully!", {
       description: `${newProject.name} has been added to your dashboard.`,
     })
+  }
+
+  const handleAddProjectClick = () => {
+    setIsSetupChoiceOpen(true)
+  }
+
+  const handleChooseQuick = () => {
+    setIsSetupChoiceOpen(false)
+    setIsQuickCreateOpen(true)
+  }
+
+  const handleChooseGuided = () => {
+    setIsSetupChoiceOpen(false)
+    setIsGuidedSetupOpen(true)
   }
 
   const removeFilter = (key: string, value: string) => {
