@@ -3,11 +3,16 @@
 import { format } from "date-fns"
 import type { Project } from "@/lib/data/projects"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { getAvatarUrl } from "@/lib/assets/avatars"
 import { Folder, CalendarBlank, Flag, User } from "@phosphor-icons/react/dist/ssr"
+import { Star, MoreVertical, Copy, Archive, Trash2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PriorityBadge } from "@/components/priority-badge"
 import { ProjectProgress } from "@/components/project-progress"
+import { useProjects } from "@/lib/contexts/projects-context"
+import { toast } from "sonner"
 
 type ProjectCardProps = {
   project: Project
