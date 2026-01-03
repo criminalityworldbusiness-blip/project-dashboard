@@ -26,6 +26,7 @@ export function ProjectsContent() {
   const [isSetupChoiceOpen, setIsSetupChoiceOpen] = useState(false)
   const [isQuickCreateOpen, setIsQuickCreateOpen] = useState(false)
   const [isGuidedSetupOpen, setIsGuidedSetupOpen] = useState(false)
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
   const isSyncingRef = useRef(false)
   const prevParamsRef = useRef<string>("")
