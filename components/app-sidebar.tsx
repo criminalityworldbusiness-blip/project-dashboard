@@ -29,7 +29,9 @@ import {
   CaretRight,
   CaretUpDown,
 } from "@phosphor-icons/react/dist/ssr"
-import { activeProjects, footerItems, navItems, type NavItemId, type SidebarFooterItemId } from "@/lib/data/sidebar"
+import { footerItems, navItems, type NavItemId, type SidebarFooterItemId } from "@/lib/data/sidebar"
+import { useProjects } from "@/lib/contexts/projects-context"
+import { useMemo } from "react"
 
 const navItemIcons: Record<NavItemId, React.ComponentType<{ className?: string }>> = {
   inbox: Tray,
