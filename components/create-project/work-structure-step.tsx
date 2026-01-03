@@ -34,8 +34,8 @@ export function WorkStructureStep() {
   ]
 
   return (
-    <div className="space-y-6">
-      <div>
+    <div className="space-y-6 max-w-3xl">
+      <div className="mb-6">
         <h2 className="text-2xl font-semibold mb-2">How should this project be structured?</h2>
         <p className="text-sm text-muted-foreground">
           Choose the workflow that fits your team best.
