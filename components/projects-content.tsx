@@ -130,19 +130,38 @@ export function ProjectsContent() {
   }, [filters, viewOptions, projects])
 
   return (
-    <div className="flex flex-1 flex-col bg-background mx-2 my-2 border border-border rounded-lg min-w-0">
-      <ProjectHeader
-        filters={filters}
-        onRemoveFilter={removeFilter}
-        onFiltersChange={applyFilters}
-        counts={computeFilterCounts(filteredProjects)}
-        viewOptions={viewOptions}
-        onViewOptionsChange={setViewOptions}
-        onAddProject={handleAddProjectClick}
-      />
-      {viewOptions.viewType === "timeline" && <ProjectTimeline />}
-      {viewOptions.viewType === "list" && <ProjectCardsView projects={filteredProjects} />}
-      {viewOptions.viewType === "board" && <ProjectBoardView projects={filteredProjects} />}
+    <>
+      {selectedProject ? (
+        <ProjectDetailsView
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
+      ) : (
+        <div className="flex flex-1 flex-col bg-background mx-2 my-2 border border-border rounded-lg min-w-0">
+          <ProjectHeader
+            filters={filters}
+            onRemoveFilter={removeFilter}
+            onFiltersChange={applyFilters}
+            counts={computeFilterCounts(filteredProjects)}
+            viewOptions={viewOptions}
+            onViewOptionsChange={setViewOptions}
+            onAddProject={handleAddProjectClick}
+          />
+          {viewOptions.viewType === "timeline" && <ProjectTimeline />}
+          {viewOptions.viewType === "list" && (
+            <ProjectCardsView 
+              projects={filteredProjects}
+              onProjectClick={(project) => setSelectedProject(project)}
+            />
+          )}
+          {viewOptions.viewType === "board" && (
+            <ProjectBoardView
+              projects={filteredProjects}
+              onProjectClick={(project) => setSelectedProject(project)}
+            />
+          )}
+        </div>
+      )}
       
       <ProjectSetupChoiceModal
         open={isSetupChoiceOpen}
@@ -162,6 +181,6 @@ export function ProjectsContent() {
         onOpenChange={setIsGuidedSetupOpen}
         onCreateProject={handleCreateProject}
       />
-    </div>
+    </>
   )
 }
