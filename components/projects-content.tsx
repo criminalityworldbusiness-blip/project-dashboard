@@ -7,30 +7,30 @@ import { ProjectTimeline } from "@/components/project-timeline"
 import { ProjectCardsView } from "@/components/project-cards-view"
 import { ProjectBoardView } from "@/components/project-board-view"
 import { CreateProjectModal } from "@/components/create-project-modal"
-import { computeFilterCounts, projects as initialProjects, type Project } from "@/lib/data/projects"
+import { computeFilterCounts, type Project } from "@/lib/data/projects"
 import { DEFAULT_VIEW_OPTIONS, type FilterChip, type ViewOptions } from "@/lib/view-options"
 import { chipsToParams, paramsToChips } from "@/lib/url/filters"
+import { useProjects } from "@/lib/contexts/projects-context"
+import { toast } from "sonner"
 
 export function ProjectsContent() {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const { projects, addProject } = useProjects()
 
   const [viewOptions, setViewOptions] = useState<ViewOptions>(DEFAULT_VIEW_OPTIONS)
   const [filters, setFilters] = useState<FilterChip[]>([])
-  const [projects, setProjects] = useState<Project[]>(initialProjects)
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
 
   const isSyncingRef = useRef(false)
   const prevParamsRef = useRef<string>("")
 
-  const handleCreateProject = (newProject: Partial<Project>) => {
-    const projectWithId = {
-      ...newProject,
-      id: String(Date.now()),
-      tasks: newProject.tasks || [],
-    } as Project
-    setProjects((prev) => [projectWithId, ...prev])
+  const handleCreateProject = (newProject: Project) => {
+    addProject(newProject)
+    toast.success("Project created successfully!", {
+      description: `${newProject.name} has been added to your dashboard.`,
+    })
   }
 
   const removeFilter = (key: string, value: string) => {
