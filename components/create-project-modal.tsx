@@ -245,28 +245,28 @@ export function CreateProjectModal({ open, onOpenChange, onCreateProject }: Crea
               </button>
 
               {/* Content */}
-              <div className="flex-1 overflow-y-auto p-8">
+              <div className="flex-1 overflow-y-auto px-8 py-6">
                 {renderStep()}
               </div>
 
               {/* Footer */}
-              <div className="border-t border-border p-6 flex items-center justify-between">
+              <div className="border-t border-border px-8 py-4 flex items-center justify-between bg-muted/10">
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   onClick={handleBack}
                   disabled={currentStep === 1}
                   data-testid="create-project-back-btn"
                 >
-                  <ArrowLeft className="h-4 w-4" />
+                  <ArrowLeft className="h-4 w-4 mr-2" />
                   Back
                 </Button>
                 <Button
                   onClick={handleNext}
-                  className="bg-blue-600 hover:bg-blue-700"
+                  className="bg-blue-600 hover:bg-blue-700 text-white"
                   data-testid="create-project-next-btn"
                 >
                   {currentStep === 5 ? "Create Project" : "Next"}
-                  {currentStep < 5 && <ArrowRight className="h-4 w-4" />}
+                  {currentStep < 5 && <ArrowRight className="h-4 w-4 ml-2" />}
                 </Button>
               </div>
             </div>
