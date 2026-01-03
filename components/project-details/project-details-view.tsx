@@ -222,16 +222,42 @@ export function ProjectDetailsView({ project, onClose }: ProjectDetailsViewProps
       {/* Right Sidebar */}
       <div
         className={cn(
-          "w-80 border-l border-border bg-background transition-all duration-300",
-          isSidebarOpen ? "translate-x-0" : "translate-x-full absolute right-0 top-0 bottom-0 md:relative md:translate-x-0"
+          "w-80 border-l border-border bg-background transition-all duration-300 relative",
+          !isSidebarOpen && "w-0 overflow-hidden"
         )}
       >
-        <ProjectDetailsSidebar
-          project={project}
-          isOpen={isSidebarOpen}
-          onClose={() => setIsSidebarOpen(false)}
-        />
+        {isSidebarOpen && (
+          <ProjectDetailsSidebar
+            project={project}
+            isOpen={isSidebarOpen}
+            onClose={() => setIsSidebarOpen(false)}
+          />
+        )}
       </div>
+
+      {/* Sidebar Toggle Button (when closed) */}
+      {!isSidebarOpen && (
+        <button
+          onClick={() => setIsSidebarOpen(true)}
+          className="fixed right-4 top-24 z-50 flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-background shadow-lg hover:bg-muted transition-colors"
+          data-testid="show-sidebar-btn"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <rect width="18" height="18" x="3" y="3" rx="2" />
+            <path d="M15 3v18" />
+          </svg>
+        </button>
+      )}
     </div>
   )
 }
